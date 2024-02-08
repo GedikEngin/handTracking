@@ -70,6 +70,6 @@
 #### Optimisation:
 
 - Optimize to be a valid substitute to real time mouse
-- look at translating to CPP (Kadir abi for aid/support if needed?)
+- look at translating to CPP / C# (Kadir abi for aid/support if needed?)
 - Identify bottle necks and aim to optimize regions that are the most restricting
 - Look at the introduction of multithreading and/or gpu acceleration to speed up the computing intensive tasks such as detection and tracking
