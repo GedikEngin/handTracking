@@ -11,6 +11,31 @@ installed libraries:
 turns out esp32 devkit does not have usb hid system, need to use bluetooth to emulate it
 looking at bluetooth setups to execute/try
 
+BLEMouse by tvk stand alone doesnt work?
+bringing in ble devices lib
+
+- ESP32 BLE Arduino
+- BLEMouse
+- BLEKeyboard
+
+keyboard doesnt work
+trying different gpt and copilot prompts
+
+still doesnt work. most likely due to HID
+
+different approach being planned:
+
+ESP32 is used to only send a trigger signal. the clicks and actions are executed from computer side.
+
+---
+
+use cpp script to send signals
+use python script (using pyautogui) to execute linked commands to signal
+
+working very well.
+pygui responds fast to inputs by reading from serial port
+esp32/cpp side can send correct signals consistently
+
 ## important resources:
 
 arduino's standard mouse libs
@@ -26,37 +51,5 @@ https://github.com/NicoHood/HID?utm_source=platformio&utm_medium=piohome
 esp32 info/spec sheet
 https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html
 
-#include <HID.h>
-#include <Arduino.h>
-#include <Mouse.h>
-#include <HID-Project.h>
-
-const int leftButtonPin = 16;
-const int rightButtonPin = 17;
-
-void setup()
-{
-pinMode(leftButtonPin, INPUT_PULLDOWN);
-pinMode(rightButtonPin, INPUT_PULLDOWN);
-Mouse.begin();
-}
-
-void loop()
-{
-// clicks MOUSE_LEFT if it receives signal from leftButtonPin
-if (digitalRead(leftButtonPin) == HIGH)
-{
-Mouse.click(MOUSE_LEFT);
-}
-
-// clicks MOUSE_RIGHT if it receives signal from rightButtonPin
-if (digitalRead(rightButtonPin) == HIGH)
-{
-Mouse.click(MOUSE_RIGHT);
-}
-
-Mouse.end();
-}
-
-// srcs notes:
-// button: which mouse button to press (MOUSE_LEFT, MOUSE_RIGHT, MOUSE_MIDDLE, default = MOUSE_LEFT)
+pygui wiki
+https://pyautogui.readthedocs.io/en/latest/
